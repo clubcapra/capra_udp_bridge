@@ -7,8 +7,10 @@ __pycache__/
 
 
 launch/*
-!launch/demo.launch.py
+!launch/demo1.launch.py
+!launch/demo2.launch.py
 
 config/*
-!config/demo_config.yaml
+!config/demo_config1.yaml
+!config/demo_config2.yaml
 

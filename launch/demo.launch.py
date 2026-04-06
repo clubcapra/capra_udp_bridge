@@ -11,15 +11,16 @@ def generate_launch_description():
     pkg_udp_bridge = get_package_share_directory("capra_udp_bridge")
     
     demo_config_file = os.path.join(pkg_udp_bridge, "config", "demo_config.yaml")
-    config_dec = DeclareLaunchArgument("config", default_value=demo_config_file)
-    config = LaunchConfiguration("config")
+    dir_dec = DeclareLaunchArgument("dir", choices=["rx", "tx"], default_value="rx")
+    dir = LaunchConfiguration("dir")
     
     return LaunchDescription([
-        config_dec,
+        dir_dec,
         Node(
             package='capra_udp_bridge',
             executable='udp_bridge_node',
-            name=f"udp_{int(time.time())}",
-            parameters=[config],
+            name=['udp_bridge_node_', dir],
+            parameters=[demo_config_file],
+            ros_arguments=["--log-level", "my_node:=debug"],
         ),
     ])

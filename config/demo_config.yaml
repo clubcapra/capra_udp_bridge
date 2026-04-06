@@ -1,9 +1,19 @@
-/capra_udp_bridge:
+/udp_bridge_node_tx:
   ros__parameters:
-    proxy_ip: "127.0.0.1"
+    proxy_ip: "0.0.0.0"
 
     cmd_vel:
       topic: /rove/cmd_vel
       type: geometry_msgs/msg/Twist
       port: 5000
       direction: out
+
+/udp_bridge_node_rx:
+  ros__parameters:
+    proxy_ip: "0.0.0.0"
+
+    cmd_vel:
+      topic: /remote/rove/cmd_vel
+      type: geometry_msgs/msg/Twist
+      port: 5000
+      direction: in
