@@ -1,0 +1,14 @@
+build/
+install/
+log/
+*.pyc
+__pycache__/
+.vscode/
+
+
+launch/*
+!launch/demo.launch.py
+
+config/*
+!config/demo_config.yaml
+
