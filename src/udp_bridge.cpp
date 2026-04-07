@@ -196,15 +196,6 @@ void UdpBridgeNode::setup_topics()
               proxy_ip_.c_str(),
               strerror(errno));
           }
-          else
-          {
-            RCLCPP_INFO(get_logger(),
-              "[UDP TX] %s → %s:%d (%ld bytes)",
-              cfg.topic.c_str(),
-              proxy_ip_.c_str(),
-              cfg.port,
-              sent);
-          }
         }));
 
       RCLCPP_INFO(get_logger(),
