@@ -155,10 +155,6 @@ void UdpBridgeNode::setup_topics()
     {
       pubs_.push_back(create_generic_publisher(
         cfg.topic, cfg.type, rclcpp::QoS(10)));
-
-      RCLCPP_INFO(get_logger(),
-        "  ↳ PUB UDP:%d → ROS:%s",
-        cfg.port, cfg.topic.c_str());
     }
     else {
       pubs_.push_back(nullptr);
@@ -195,15 +191,6 @@ void UdpBridgeNode::setup_topics()
               cfg.topic.c_str(),
               proxy_ip_.c_str(),
               strerror(errno));
-          }
-          else
-          {
-            RCLCPP_INFO(get_logger(),
-              "[UDP TX] %s → %s:%d (%ld bytes)",
-              cfg.topic.c_str(),
-              proxy_ip_.c_str(),
-              cfg.port,
-              sent);
           }
         }));
 
@@ -264,12 +251,6 @@ void UdpBridgeNode::start_rx_thread()
         if (size <= 0)
           continue;
 
-        RCLCPP_INFO(get_logger(),
-          "[UDP RX] port=%d from %s (%ld bytes)",
-          port,
-          addr_to_str(src).c_str(),
-          size);
-
         auto it = std::find_if(
           topics_.begin(),
           topics_.end(),
@@ -288,11 +269,6 @@ void UdpBridgeNode::start_rx_thread()
         msg.get_rcl_serialized_message().buffer_length = size;
 
         pubs_[idx]->publish(msg);
-
-        RCLCPP_INFO(get_logger(),
-          "[PUB] UDP:%d → ROS:%s",
-          port,
-          it->topic.c_str());
       }
     }
   }).detach();
